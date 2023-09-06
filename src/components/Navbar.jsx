@@ -4,8 +4,15 @@ import { AiFillHeart, AiOutlineClose } from "react-icons/ai";
 import { MdShoppingCart } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUser } from "../redux/features/authSlice";
+import { getCookie } from "../utils/getCookie";
 
 const Navbar = () => {
+  const currentUser = useSelector(selectUser);
+  const token = getCookie("access_token");
+  console.log(token);
+
   const [state, setState] = useState({
     toggle: false,
     search: "",
@@ -63,7 +70,7 @@ const Navbar = () => {
         </Link>
 
         <div className="gap-8 text-2xl flex justify-center items-center">
-          {true ? (
+          {!token ? (
             <Link
               to={"/login"}
               className=" w-24 h-10 duration-300 text-lg text-gray-800 ease-in transition-all flex justify-center items-center pb-1 rounded border-2 border-gray-800 h hover:text-gray-200 hover:rounded-full hover:bg-gray-500"
@@ -80,7 +87,7 @@ const Navbar = () => {
             </button>
           )}
           <AiFillHeart />
-          <Link to={"/products"}>
+          <Link to={"/cart"}>
             <MdShoppingCart />
           </Link>
         </div>

@@ -11,7 +11,7 @@ function Home() {
     });
   // console.log(productList);
 
-  console.log(staticCategory);
+  // console.log(staticCategory);
 
   React.useEffect(() => {
     fetchProducts();
@@ -26,7 +26,7 @@ function Home() {
               key={item.id}
               className="cursor-pointer hover:scale-110 duration-300"
             >
-              <img className="w-[150px] rounded-lg" src={item.img} />
+              <img className="w-[180px] rounded-lg" src={item.img} />
             </div>
           ))}
         </div>

@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
 const Signup = () => {
+  // * variables
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // ? states
   const [state, setState] = useState({
     errName: false,
     errEmail: false,
@@ -17,6 +23,7 @@ const Signup = () => {
     loading: false,
   });
 
+  // ! functions
   const handleSubmit = async (e) => {
     e.preventDefault();
     const values = {

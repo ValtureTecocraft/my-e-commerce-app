@@ -1,17 +1,30 @@
-// using formik and yup
-
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../redux/features/loginSlice";
+import { toast } from "react-toastify";
+import { setUser } from "../redux/features/authSlice";
 
 const Login = () => {
+  // * variables
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const tokenExpirationInSeconds = 3600;
+
+  // const currentUser = useSelector(selectUser);
+  // console.log(currentUser);
+
+  // ? states
   const [state, setState] = useState({
     IEmail: false,
     IPassword: false,
     email: "",
     password: "",
   });
+  const [_, setCookies] = useCookies(["access_token"]);
 
+  // ! functions
   const handleChange = (e) => {
     const { name, value } = e.target;
     setState({
@@ -26,12 +39,24 @@ const Login = () => {
       email: state.email,
       password: state.password,
     };
-    try {
-      const response = await axios.post("/api/auth/login", values);
-      localStorage.setItem("token", response.data.encodedToken);
-      handleToken();
-    } catch (error) {
-      console.log(error);
+    const { payload } = await dispatch(loginUser({ ...values }));
+    console.log(payload);
+
+    if (payload === undefined) {
+      toast.error("Invalid login credentials");
+    } else {
+      const expirationDate = new Date(
+        Date.now() + tokenExpirationInSeconds * 1000 // Convert seconds to milliseconds
+      );
+      setCookies("access_token", payload.encodedToken, {
+        path: "/",
+        httpOnly: false,
+        expires: expirationDate,
+        secure: true,
+        sameSite: "strict",
+      });
+      dispatch(setUser(payload.foundUser));
+      navigate("/");
     }
   };
 
