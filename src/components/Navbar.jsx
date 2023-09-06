@@ -22,6 +22,19 @@ const Navbar = () => {
   const isOpen = useSelector(sidebarStatus);
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   if (isOpen) {
+  //     document.body.style.overflow = "hidden";
+  //   } else {
+  //     document.body.style.overflow = "auto"; // Revert back to auto overflow when sidebar is closed
+  //   }
+
+  //   // Cleanup effect to reset overflow on unmount or when isOpen changes
+  //   return () => {
+  //     document.body.style.overflow = "auto";
+  //   };
+  // }, [isOpen]);
+
   const handleSearchClick = () => {
     setState({
       ...state,
@@ -101,6 +114,7 @@ const Navbar = () => {
         <div onClick={handleSidebar} className="z-20 block md:hidden ">
           {isOpen ? <GrClose /> : <GiHamburgerMenu />}
         </div>
+
         <div
           className={`block md:hidden fixed top-[52px] duration-300 ${
             isOpen ? "right-0" : "right-[-700px]"
