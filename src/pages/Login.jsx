@@ -45,6 +45,7 @@ const Login = () => {
     if (payload === undefined) {
       toast.error("Invalid login credentials");
     } else {
+      toast.success("Login successfull.");
       const expirationDate = new Date(
         Date.now() + tokenExpirationInSeconds * 1000 // Convert seconds to milliseconds
       );

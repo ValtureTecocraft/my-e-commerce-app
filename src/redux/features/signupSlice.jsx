@@ -26,6 +26,9 @@ const signupSlice = createSlice({
     builder.addCase(registrationUserData.fulfilled, (state, { payload }) => {
       state.registerUser = payload;
     });
+    builder.addCase(registrationUserData.rejected, (state, { payload }) => {
+      state.registerUser = payload;
+    });
   },
 });
 

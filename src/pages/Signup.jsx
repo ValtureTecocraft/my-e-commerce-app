@@ -3,6 +3,12 @@ import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import {
+  registrationUserData,
+  setSignUpUserdata,
+} from "../redux/features/signupSlice";
+import { toast } from "react-toastify";
+import { setUser } from "../redux/features/authSlice";
 
 const Signup = () => {
   // * variables
@@ -26,16 +32,26 @@ const Signup = () => {
   // ! functions
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const values = {
-      email: state.email,
-      password: state.password,
-      name: state.name,
-    };
     try {
-      const response = await axios.post("/api/auth/signup", values);
-      localStorage.setItem("token", response.data.encodedToken);
-    } catch (error) {
-      console.log(error);
+      const userData = {
+        email: state.email,
+        password: state.password,
+        name: state.name,
+      };
+      dispatch(setSignUpUserdata(userData));
+      const res = await dispatch(registrationUserData(userData));
+      // console.log(payload.payload.encodedToken);
+      if (res.payload) {
+        toast.success("User successfully registered.");
+        dispatch(setUser(res.payload.foundUser));
+        const token = res.payload.encodedToken;
+        localStorage.setItem("access_token", token);
+        navigate("/login");
+      } else {
+        toast.error("User already exixts.");
+      }
+    } catch (err) {
+      console.log(err);
     }
 
     // console.log(state);
