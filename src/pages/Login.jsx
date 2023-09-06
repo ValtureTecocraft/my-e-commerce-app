@@ -22,7 +22,7 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const [_, setCookies] = useCookies(["access_token"]);
+  const [cookies, setCookies] = useCookies(["access_token"]);
 
   // ! functions
   const handleChange = (e) => {
@@ -48,13 +48,7 @@ const Login = () => {
       const expirationDate = new Date(
         Date.now() + tokenExpirationInSeconds * 1000 // Convert seconds to milliseconds
       );
-      setCookies("access_token", payload.encodedToken, {
-        path: "/",
-        httpOnly: false,
-        expires: expirationDate,
-        secure: true,
-        sameSite: "strict",
-      });
+      localStorage.setItem("access_token", payload.encodedToken);
       dispatch(setUser(payload.foundUser));
       navigate("/");
     }

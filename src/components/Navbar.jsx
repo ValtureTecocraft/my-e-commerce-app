@@ -4,13 +4,9 @@ import { AiFillHeart, AiOutlineClose } from "react-icons/ai";
 import { MdShoppingCart } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectUser } from "../redux/features/authSlice";
-import { getCookie } from "../utils/getCookie";
 
 const Navbar = () => {
-  const currentUser = useSelector(selectUser);
-  const token = getCookie("access_token");
+  const token = localStorage.getItem("access_token");
   console.log(token);
 
   const [state, setState] = useState({
@@ -29,6 +25,7 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("access_token");
     navigate("/");
   };
 

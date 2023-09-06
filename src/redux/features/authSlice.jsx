@@ -1,23 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getCookie } from "../../utils/getCookie";
-import { useState } from "react";
-import axios from "axios";
 
 const token = getCookie("access_token");
-
-const fetchFooDetails = async () => {
-  try {
-    const response = await axios.get(`/api/user/private-route`, {
-      headers: {
-        authorization: token,
-      },
-    });
-    const foo = response.data.bar;
-    console.log(foo);
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 const initialState = {
   isLoggedIn: false,
@@ -39,10 +23,6 @@ const authSlice = createSlice({
     },
   },
 });
-
-if (token) {
-  fetchFooDetails();
-}
 
 export const { setUser, setToken, logoutUser } = authSlice.actions;
 
