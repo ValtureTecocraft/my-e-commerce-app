@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { staticCategory } from "../constants/data";
 // import { useSelector } from "react-redux";
 // import { selectUser } from "../redux/features/authSlice";
@@ -6,11 +6,25 @@ import { Link } from "react-router-dom";
 import Banner from "../components/Banner";
 import BestSeller from "../components/BestSeller";
 import { seller, shoes } from "../assets";
+import axios from "axios";
 
 function Home() {
   // const currentUser = useSelector(selectUser);
 
   // console.log(currentUser);
+
+  const [categoriesList, setCategoriesList] = useState([]);
+
+  const fetchProducts = () =>
+    axios.get("/api/categories").then((cat) => {
+      setCategoriesList(cat.data.categories);
+    });
+
+  // console.log(categoriesList);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <>

@@ -44,7 +44,7 @@ const Login = () => {
         password: state.password,
       };
       const { payload } = await dispatch(loginUser({ ...values }));
-      console.log(payload);
+      // console.log(payload);
 
       if (payload === undefined) {
         toast.error("Invalid login credentials");

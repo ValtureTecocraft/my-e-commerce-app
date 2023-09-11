@@ -43,7 +43,7 @@ const Product_Card = (props) => {
         )}
       </div>
 
-      <div className="p-5 pb-0 space-y-1">
+      <div className="px-5 py-2 space-y-1">
         <h2 className="text-xl font-bold tracking-wider">{name}</h2>
         <p className="w-full font-medium truncate">{infoTitle}</p>
         <Rating
