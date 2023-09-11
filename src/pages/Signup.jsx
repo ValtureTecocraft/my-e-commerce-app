@@ -9,11 +9,14 @@ import {
 } from "../redux/features/signupSlice";
 import { toast } from "react-toastify";
 import { setUser } from "../redux/features/authSlice";
+import { useDocumentTitle } from "../hooks";
 
 const Signup = () => {
   // * variables
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useDocumentTitle("Signup");
 
   // ? states
   const [state, setState] = useState({

@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../redux/features/loginSlice";
 import { toast } from "react-toastify";
 import { setUser } from "../redux/features/authSlice";
+import { useDocumentTitle } from "../hooks";
 
 const Login = () => {
   // * variables
@@ -14,6 +15,8 @@ const Login = () => {
 
   // const currentUser = useSelector(selectUser);
   // console.log(currentUser);
+
+  useDocumentTitle("Login");
 
   // ? states
   const [state, setState] = useState({
