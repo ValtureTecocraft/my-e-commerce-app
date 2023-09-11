@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { sidebarStatus, toggleSidebar } from "../redux/features/sidebarSlice";
+import { dataState } from "../redux/features/dataSlice";
 
 const Navbar = () => {
   const token = localStorage.getItem("access_token");
@@ -21,6 +22,11 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector(sidebarStatus);
   const navigate = useNavigate();
+
+  const data = useSelector(dataState);
+
+  const wishList = data.wishList.length;
+  const cart = data.cart.length;
 
   // useEffect(() => {
   //   if (isOpen) {
@@ -104,13 +110,23 @@ const Navbar = () => {
               Logout
             </button>
           )}
-          <AiFillHeart className="text-3xl" />
-          <Link to={"/cart"}>
+
+          <Link to={"/wishlist"} className="relative">
+            <AiFillHeart className="text-3xl" />
+            <span className="absolute -top-2 -right-1 px-1 pb-0.5 font-semibold text-sm bg-gray-100 rounded-full ">
+              {wishList}
+            </span>
+          </Link>
+
+          <Link to={"/cart"} className="relative">
             <MdShoppingCart className="text-3xl" />
+            <span className="absolute -top-2 -right-1 px-1 pb-0.5 font-semibold text-sm bg-gray-100 rounded-full ">
+              {cart}
+            </span>
           </Link>
         </div>
 
-        {/* responsive navbars */}
+        {/* ======================> responsive navbars <========================== */}
         <div onClick={handleSidebar} className="z-20 block md:hidden ">
           {isOpen ? <GrClose /> : <GiHamburgerMenu />}
         </div>
@@ -120,20 +136,30 @@ const Navbar = () => {
             isOpen ? "right-0" : "right-[-700px]"
           } z-10 w-40 h-screen flex flex-col gap-5 bg-white p-5 shadow-lg`}
         >
-          <p className="w-full flex gap-2 items-center">
+          <Link
+            to={"/wishlist"}
+            className="relative w-fit flex gap-2 items-center"
+          >
             Wishlist{" "}
             <span className="text-xl">
               <AiFillHeart />
             </span>
-          </p>
+            <span className="absolute -top-2 -right-1 px-1 pb-0.5 font-semibold text-xs bg-gray-100 rounded-full ">
+              {wishList}
+            </span>
+          </Link>
 
-          <Link to={"/cart"}>
-            <p className="w-full flex gap-2 items-center">
-              Cart{" "}
-              <span className="text-xl">
-                <MdShoppingCart />
-              </span>
-            </p>
+          <Link
+            to={"/cart"}
+            className="relative w-fit flex gap-2 items-center "
+          >
+            Cart{" "}
+            <span className="text-xl">
+              <MdShoppingCart />
+            </span>
+            <span className="absolute -top-2 -right-1 px-1 pb-0.5 font-semibold text-xs bg-gray-100 rounded-full ">
+              {cart}
+            </span>
           </Link>
 
           {!token ? (

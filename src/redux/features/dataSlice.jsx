@@ -1,18 +1,18 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { API } from "../../api/features";
+import { createSlice } from "@reduxjs/toolkit";
+// import { API } from "../../api/features";
 
 // Define an async thunk for fetching user registration data
-export const fetchData = createAsyncThunk(
-  "userData/fetchRegistrationData", // Provide a unique action type
-  async () => {
-    try {
-      const response = await API.get("products");
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  }
-);
+// export const fetchData = createAsyncThunk(
+//   "userData/fetchRegistrationData", // Provide a unique action type
+//   async () => {
+//     try {
+//       const response = await API.get("products");
+//       return response.data;
+//     } catch (error) {
+//       throw error;
+//     }
+//   }
+// );
 
 const initialState = {
   isDataLoading: false,
@@ -22,7 +22,7 @@ const initialState = {
   categories: [],
 };
 
-const signupSlice = createSlice({
+const dataSlice = createSlice({
   name: "userData",
   initialState,
   reducers: {
@@ -33,27 +33,18 @@ const signupSlice = createSlice({
       state.product = action.payload;
     },
     setCart: (state, action) => {
-      state.cart = action.payload;
+      state.cart = [...state.cart, action.payload];
     },
     setWishList: (state, action) => {
-      state.wishList = action.payload;
+      state.wishList = [...state.wishList, action.payload];
+    },
+    removeFromWishList: (state, action) => {
+      const idToRemove = action.payload._id;
+      state.wishList = state.wishList.filter((item) => item._id !== idToRemove);
     },
     setCategories: (state, action) => {
       state.categories = action.payload;
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchData.pending, (state) => {
-        state.isDataLoading = true;
-      })
-      .addCase(fetchData.fulfilled, (state, action) => {
-        state.isDataLoading = false;
-        state.product = action.payload;
-      })
-      .addCase(fetchData.rejected, (state) => {
-        state.isDataLoading = false;
-      });
   },
 });
 
@@ -63,6 +54,9 @@ export const {
   setCart,
   setWishList,
   setCategories,
-} = signupSlice.actions;
+  removeFromWishList,
+} = dataSlice.actions;
 
-export default signupSlice.reducer;
+export default dataSlice.reducer;
+
+export const dataState = (state) => state.userData;

@@ -1,25 +1,55 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Filter from "../components/Filter";
 import Product_Card from "../components/Product_Card";
-import { useDispatch } from "react-redux";
-import { fetchData } from "../redux/features/dataSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  dataState,
+  removeFromWishList,
+  setCart,
+  setProducts,
+  setWishList,
+} from "../redux/features/dataSlice";
 import axios from "axios";
 
 const Products = () => {
   const dispatch = useDispatch();
+  const data = useSelector(dataState);
 
   // const res = dispatch(fetchData);
+  // console.log(data);
 
   const [productList, setProductList] = useState([]);
 
   const fetchProducts = () =>
     axios.get("/api/products").then((product) => {
       setProductList(product.data.products);
+      dispatch(setProducts(product.data.products));
     });
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchProducts();
   }, []);
+
+  const handleAddToCart = (product) => {
+    if (product.inStock === true) {
+      const isProductInCart = data.cart.some(
+        (item) => item._id === product._id
+      );
+
+      if (isProductInCart) {
+      } else {
+        dispatch(setCart(product));
+      }
+    }
+  };
+
+  const handleWishList = (product) => {
+    if (data.wishList.some((item) => item._id === product._id)) {
+      dispatch(removeFromWishList(product));
+    } else {
+      dispatch(setWishList(product));
+    }
+  };
 
   return (
     <div className="w-full min-h-screen h-full px-8 flex justify-center bg-gray-100">
@@ -27,7 +57,7 @@ const Products = () => {
         <div className="">
           <Filter />
         </div>
-        <div className="w-full h-full gap-5 grid grid-cols-auto">
+        <div className="w-full h-full gap-5 grid grid-cols-auto place-content-center place-items-center">
           {productList.map((item) => (
             <div key={item._id}>
               <Product_Card
@@ -38,6 +68,12 @@ const Products = () => {
                 price={item.price}
                 fastDelivery={item.fastDelivery}
                 inStock={item.inStock}
+                cartButton={item.inStock ? "Add to Cart" : "Out of Stock"}
+                addToCart={() => handleAddToCart(item)}
+                id={item._id}
+                cart={data.cart}
+                wishList={data.wishList}
+                handleWishListClick={() => handleWishList(item)}
               />
             </div>
           ))}
