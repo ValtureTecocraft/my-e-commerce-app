@@ -10,6 +10,7 @@ const Product_Card = (props) => {
     infoTitle,
     rating,
     price,
+    originalPrice,
     fastDelivery,
     cartButton,
     addToCart,
@@ -52,7 +53,12 @@ const Product_Card = (props) => {
           value={rating}
           readOnly
         />
-        <p className="font-semibold">₹ {price}</p>
+        <p className="font-semibold">
+          ₹ {price}{" "}
+          <span className="ml-2 font-normal line-through">
+            ( ₹ {originalPrice} )
+          </span>
+        </p>
         <p className="font-light">
           {fastDelivery ? "Fast Delivery" : "5 Days Delivery"}
         </p>

@@ -66,6 +66,7 @@ const Products = () => {
                 infoTitle={item.infoTitle}
                 rating={item.rating}
                 price={item.price}
+                originalPrice={item.originalPrice}
                 fastDelivery={item.fastDelivery}
                 inStock={item.inStock}
                 cartButton={item.inStock ? "Add to Cart" : "Out of Stock"}
