@@ -32,6 +32,15 @@ const Signup = () => {
     loading: false,
   });
 
+  useEffect(() => {
+    setState((prevState) => ({
+      ...prevState,
+      IName: prevState.name !== "",
+      IEmail: prevState.email !== "",
+      IPassword: prevState.password !== "",
+    }));
+  }, [state.name, state.email, state.password]);
+
   // ! functions
   const handleSubmit = async (e) => {
     e.preventDefault();
