@@ -35,23 +35,25 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const values = {
-      email: state.email,
-      password: state.password,
-    };
-    const { payload } = await dispatch(loginUser({ ...values }));
-    console.log(payload);
+    if (state.email !== "" && state.password !== "") {
+      const values = {
+        email: state.email,
+        password: state.password,
+      };
+      const { payload } = await dispatch(loginUser({ ...values }));
+      console.log(payload);
 
-    if (payload === undefined) {
-      toast.error("Invalid login credentials");
-    } else {
-      toast.success("Login successfull.");
-      const expirationDate = new Date(
-        Date.now() + tokenExpirationInSeconds * 1000 // Convert seconds to milliseconds
-      );
-      localStorage.setItem("access_token", payload.encodedToken);
-      dispatch(setUser(payload.foundUser));
-      navigate("/");
+      if (payload === undefined) {
+        toast.error("Invalid login credentials");
+      } else {
+        toast.success("Login successfull.");
+        const expirationDate = new Date(
+          Date.now() + tokenExpirationInSeconds * 1000 // Convert seconds to milliseconds
+        );
+        localStorage.setItem("access_token", payload.encodedToken);
+        dispatch(setUser(payload.foundUser));
+        navigate("/");
+      }
     }
   };
 
@@ -64,8 +66,8 @@ const Login = () => {
   }, [state.email, state.password]);
 
   return (
-    <>
-      <div className="fixed z-0 top-1/2 left-1/2 bg-[#676675] -translate-x-1/2 -translate-y-1/2 w-full h-screen overflow-hidden flex justify-center items-center">
+    <div className="">
+      <div className="fixed top-1/2 left-1/2 bg-[#676675] -translate-x-1/2 -translate-y-1/2 w-full h-screen overflow-hidden flex justify-center items-center">
         <img
           className="min-w-[1120px] w-screen h-screen"
           src="https://images.unsplash.com/photo-1495546992359-94a48035efca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8b2NlYW4sd2F0ZXIsbGlnaHR8fHx8fHwxNjkzMjIwODky&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080"
@@ -151,7 +153,7 @@ const Login = () => {
           </p>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 
