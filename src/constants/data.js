@@ -1,12 +1,4 @@
-import {
-  shoes,
-  shervani,
-  shirt,
-  belt,
-  // mainbanner_1,
-  pent,
-  jeans,
-} from "../assets";
+import { shoes, shervani, shirt, belt, pent, jeans } from "../assets";
 
 export const categoryData = [
   {

@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import {
   authReducer,
+  dataReducer,
   loginReducer,
   sidebarReducer,
   signupReducer,
@@ -12,6 +13,7 @@ const store = configureStore({
     loginUser: loginReducer,
     auth: authReducer,
     sidebar: sidebarReducer,
+    userData: dataReducer,
   },
 });
 

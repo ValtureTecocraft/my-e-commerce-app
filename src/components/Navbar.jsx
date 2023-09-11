@@ -53,7 +53,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="fixed w-full flex bg-white justify-center shadow-lg items-center">
+    <div className="fixed w-full flex bg-white justify-center shadow-lg items-center z-10">
       <div className="relative max-w-7xl w-full py-3 px-5 flex justify-between items-center">
         <div
           className={`w-fit transition-transform duration-300 flex justify-center items-center border-2 rounded ${
@@ -64,7 +64,7 @@ const Navbar = () => {
             className={`duration-300 transition-[width] outline-none ${
               state.toggle ? "w-40 px-2" : "w-0"
             }`}
-            placeholder="Search ..."
+            placeholder="Search..."
             type="text"
             name="search"
             value={state.search}
@@ -104,9 +104,9 @@ const Navbar = () => {
               Logout
             </button>
           )}
-          <AiFillHeart />
+          <AiFillHeart className="text-3xl" />
           <Link to={"/cart"}>
-            <MdShoppingCart />
+            <MdShoppingCart className="text-3xl" />
           </Link>
         </div>
 

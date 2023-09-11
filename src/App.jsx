@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import { Cart, Home, Login, Signup } from "./pages";
+import { Cart, Home, Login, Products, Signup } from "./pages";
 import { ToastContainer } from "react-toastify";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -14,6 +14,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/products" element={<Products />} />
         <Route
           path="/cart"
           element={
