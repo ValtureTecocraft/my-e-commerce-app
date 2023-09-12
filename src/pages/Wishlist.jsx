@@ -52,7 +52,7 @@ const Wishlist = () => {
         <h1 className="text-center font-bold text-2xl text-gray-600">
           Your Wishlist
         </h1>
-        {!!wishlistData && (
+        {!wishlistData && (
           <h2 className="font-bold text-gray-400 text-3xl text-center">
             Your Wishlist is Empty.
           </h2>
