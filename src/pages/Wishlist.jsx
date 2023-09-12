@@ -48,10 +48,15 @@ const Wishlist = () => {
 
   return (
     <div className="w-full min-h-screen h-full px-8 flex justify-center bg-gray-100">
-      <div className="w-full h-full py-20 gap-8 flex flex-col justify-start">
+      <div className="w-full min-h-screen h-full py-20 gap-8 flex flex-col justify-start">
         <h1 className="text-center font-bold text-2xl text-gray-600">
           Your Wishlist
         </h1>
+        {!!wishlistData && (
+          <h2 className="font-bold text-gray-400 text-3xl text-center">
+            Your Wishlist is Empty.
+          </h2>
+        )}
         <div className="w-full h-full gap-5 grid grid-cols-1 sm:grid-cols-2 3:grid-cols-3 2:grid-cols-4 1:grid-cols-5 place-content-center place-items-center">
           {wishlistData.map((item) => (
             <div key={item._id}>
