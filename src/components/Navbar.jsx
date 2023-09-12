@@ -60,10 +60,12 @@ const Navbar = () => {
 
   return (
     <div className="fixed w-full flex bg-white justify-center shadow-lg items-center z-10">
-      <div className="relative max-w-7xl w-full py-3 px-5 flex justify-between items-center">
+      <div className="relative max-w-7xl w-full py-3 px-5 flex justify-end items-center">
         <div
-          className={`w-fit transition-transform duration-300 flex justify-center items-center border-2 rounded ${
-            state.toggle ? "border-gray-600" : "border-transparent"
+          className={`absolute left-4 md:top-5 w-fit transition-transform duration-300 flex justify-center items-center border-2 rounded ${
+            state.toggle
+              ? "border-gray-600 top-12 md:top-4"
+              : "border-transparent top-2"
           }`}
         >
           <input
@@ -79,7 +81,7 @@ const Navbar = () => {
           <button onClick={handleSearchClick} type="button">
             {state.toggle ? (
               <AiOutlineClose
-                // onClick={() => setState({ ...state, search: "" })}
+                onClick={() => setState({ ...state, search: "" })}
                 className="text-xl text-gray-700"
               />
             ) : (
@@ -113,16 +115,20 @@ const Navbar = () => {
 
           <Link to={"/wishlist"} className="relative">
             <AiFillHeart className="text-3xl" />
-            <span className="absolute -top-2 -right-1 px-1 pb-0.5 font-semibold text-sm bg-gray-100 rounded-full ">
-              {wishList}
-            </span>
+            {!!wishList && (
+              <span className="absolute -top-2 -right-1 px-1 pb-0.5 font-semibold text-sm bg-gray-100 rounded-full ">
+                {wishList}
+              </span>
+            )}
           </Link>
 
           <Link to={"/cart"} className="relative">
             <MdShoppingCart className="text-3xl" />
-            <span className="absolute -top-2 -right-1 px-1 pb-0.5 font-semibold text-sm bg-gray-100 rounded-full ">
-              {cart}
-            </span>
+            {!!cart && (
+              <span className="absolute -top-2 -right-1 px-1 pb-0.5 font-semibold text-sm bg-gray-100 rounded-full ">
+                {cart}
+              </span>
+            )}
           </Link>
         </div>
 
@@ -144,9 +150,11 @@ const Navbar = () => {
             <span className="text-xl">
               <AiFillHeart />
             </span>
-            <span className="absolute -top-2 -right-1 px-1 pb-0.5 font-semibold text-xs bg-gray-100 rounded-full ">
-              {wishList}
-            </span>
+            {!!wishList && (
+              <span className="absolute -top-2 -right-1 px-1 pb-0.5 font-semibold text-xs bg-gray-100 rounded-full ">
+                {wishList}
+              </span>
+            )}
           </Link>
 
           <Link
@@ -157,9 +165,11 @@ const Navbar = () => {
             <span className="text-xl">
               <MdShoppingCart />
             </span>
-            <span className="absolute -top-2 -right-1 px-1 pb-0.5 font-semibold text-xs bg-gray-100 rounded-full ">
-              {cart}
-            </span>
+            {!!cart && (
+              <span className="absolute -top-2 -right-1 px-1 pb-0.5 font-semibold text-xs bg-gray-100 rounded-full ">
+                {cart}
+              </span>
+            )}
           </Link>
 
           {!token ? (

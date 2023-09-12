@@ -7,6 +7,11 @@ export default {
       gridTemplateColumns: {
         auto: "repeat(auto-fit, minmax(250px, 1fr))",
       },
+      screens: {
+        1: "1440px",
+        2: "1160px",
+        3: "890px",
+      },
     },
   },
   plugins: [],

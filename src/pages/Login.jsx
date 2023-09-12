@@ -25,7 +25,6 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const [cookies, setCookies] = useCookies(["access_token"]);
 
   // ! functions
   const handleChange = (e) => {
@@ -55,7 +54,7 @@ const Login = () => {
         );
         localStorage.setItem("access_token", payload.encodedToken);
         dispatch(setUser(payload.foundUser));
-        navigate("/");
+        navigate("/products");
       }
     }
   };

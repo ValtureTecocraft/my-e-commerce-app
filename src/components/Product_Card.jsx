@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Rating from "@mui/material/Rating";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { ImBin } from "react-icons/im";
 
 const Product_Card = (props) => {
   const {
@@ -23,6 +24,11 @@ const Product_Card = (props) => {
 
   const navigate = useNavigate();
 
+  const location = useLocation();
+
+  // Check if the current route is either Login or Signup
+  const isWishListPage = location.pathname === "/wishlist";
+
   return (
     <div className="relative w-[272px] h-[480px] flex flex-col justify-between duration-300 hover:shadow-2xl cursor-pointer rounded-md overflow-hidden">
       <div className="h-full overflow-hidden flex justify-start items-start">
@@ -38,7 +44,11 @@ const Product_Card = (props) => {
         className="absolute top-2 right-2 text-2xl text-red-500"
       >
         {wishList.some((item) => item._id === id) ? (
-          <AiFillHeart />
+          isWishListPage ? (
+            <ImBin className="text-black" />
+          ) : (
+            <AiFillHeart />
+          )
         ) : (
           <AiOutlineHeart />
         )}

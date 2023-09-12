@@ -10,10 +10,14 @@ import {
   setWishList,
 } from "../redux/features/dataSlice";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Products = () => {
   const dispatch = useDispatch();
   const data = useSelector(dataState);
+
+  const token = localStorage.getItem("access_token");
+  const navigate = useNavigate();
 
   // const res = dispatch(fetchData);
   // console.log(data);
@@ -31,23 +35,31 @@ const Products = () => {
   }, []);
 
   const handleAddToCart = (product) => {
-    if (product.inStock === true) {
-      const isProductInCart = data.cart.some(
-        (item) => item._id === product._id
-      );
+    if (!token) {
+      navigate("/login");
+    } else {
+      if (product.inStock === true) {
+        const isProductInCart = data.cart.some(
+          (item) => item._id === product._id
+        );
 
-      if (isProductInCart) {
-      } else {
-        dispatch(setCart(product));
+        if (isProductInCart) {
+        } else {
+          dispatch(setCart(product));
+        }
       }
     }
   };
 
   const handleWishList = (product) => {
-    if (data.wishList.some((item) => item._id === product._id)) {
-      dispatch(removeFromWishList(product));
+    if (!token) {
+      navigate("/login");
     } else {
-      dispatch(setWishList(product));
+      if (data.wishList.some((item) => item._id === product._id)) {
+        dispatch(removeFromWishList(product));
+      } else {
+        dispatch(setWishList(product));
+      }
     }
   };
 
