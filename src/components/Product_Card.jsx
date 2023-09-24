@@ -30,7 +30,7 @@ const Product_Card = (props) => {
   const isWishListPage = location.pathname === "/wishlist";
 
   return (
-    <div className="relative w-[272px] h-[480px] flex flex-col justify-between duration-300 hover:shadow-2xl cursor-pointer rounded-md overflow-hidden">
+    <div className="relative w-[272px] h-[480px] border-[1.3px] border-transparent hover:border-gray-300 flex flex-col justify-between duration-300 hover:shadow-2xl cursor-pointer rounded-md overflow-hidden">
       <div className="h-full overflow-hidden flex justify-start items-start">
         <img
           className="w-full h-full object-cover"
@@ -84,11 +84,10 @@ const Product_Card = (props) => {
       ) : (
         <button
           onClick={addToCart}
-          className={`w-full py-2 font-bold ${
-            inStock
-              ? "bg-gray-500 text-white"
-              : "bg-gray-300 text-black cursor-default"
-          }`}
+          className={`w-full py-2 font-bold ${inStock
+            ? "bg-gray-500 text-white"
+            : "bg-gray-300 text-black cursor-default"
+            }`}
         >
           {cartButton}
         </button>
